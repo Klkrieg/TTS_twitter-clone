@@ -86,7 +86,7 @@ public class TweetService {
       }
       for (String tag : tags) {
         message = message.replaceAll(tag,
-                "<a class=\"tag\" href=\"/tweets/" + tag.substring(1).toLowerCase() + "\">" + tag + "</a>");
+                "<a class=\"tag\" href=\"/tag/" + tag.substring(1).toLowerCase() + "\">" + tag + "</a>");
       }
       tweet.setMessage(message);
     }

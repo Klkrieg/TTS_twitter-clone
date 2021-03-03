@@ -12,6 +12,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -31,7 +32,7 @@ public class User {
 
   @Length(min=3, message = "Your username must have at least 3 characters")
   @Length(max = 15, message = "Your username must not be longer than 15 characters")
-  @Pattern(regexp = "[^\\s]", message = "Your username cannot contain spaces")
+  //@Pattern(regexp = "[^\\s]", message = "Your username cannot contain spaces")
   private String username;
   @Length(min = 5, message = "Your password must have at least 5 characters")
   private String password;
@@ -39,6 +40,14 @@ public class User {
   private String firstName;
   @NotEmpty(message = "Please provide you last name")
   private String lastName;
+
+  @ManyToMany(cascade = CascadeType.ALL)
+  @JoinTable(name = "user_follower", joinColumns = @JoinColumn(name = "user_id"),
+          inverseJoinColumns = @JoinColumn(name = "follower_id"))
+  private List<User> followers;
+
+  @ManyToMany(mappedBy="followers")
+  private List<User> following;
   private int active;
 
   @CreationTimestamp
